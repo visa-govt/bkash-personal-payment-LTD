@@ -10,9 +10,8 @@ body{font-family:Arial;background:#f4f6f9;margin:0}
 .card{max-width:420px;margin:40px auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
 h2{text-align:center;color:#d81b60}
 label{font-weight:bold;margin-top:15px;display:block}
-input{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:5px}
-button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;border:none;border-radius:5px;font-size:13px}
-.success{color:green;margin-top:15px;text-align:center}
+input{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:5px;box-sizing: border-box;}
+button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;border:none;border-radius:5px;font-size:13px;cursor:pointer}
     /* --- Header & Container --- */
     header { background:#0b3a6e; width: 100%; }
     .container { max-width:1000px; margin:25px auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,.08); box-sizing: border-box; }
@@ -24,16 +23,38 @@ button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;bor
     .marquee-content img { height: 25px; margin: 0 20px; vertical-align: middle; }
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   label{display:block;font-weight:600;margin-top:12px}
-  select,input{width:100%;padding:10px;border-radius:6px;border:1px solid #d1d5db;font-size:15px}
+  select{width:100%;padding:10px;border-radius:6px;border:1px solid #d1d5db;font-size:15px}
   .actions{display:flex;gap:12px;align-items:center;margin-top:14px}
+
+  /* --- QR Code & Copy Section --- */
+  .qr-section { display: flex; justify-content: space-around; margin: 15px 0; background: #fff0f5; padding: 10px; border-radius: 8px; border: 1px dashed #d81b60; }
+  .qr-box { text-align: center; font-size: 11px; color: #333; font-weight: bold; }
+  .qr-code { background: #fff; padding: 5px; border: 1px solid #ddd; border-radius: 4px; display: inline-block; margin-bottom: 5px; }
+  
+  .copy-container { margin-top: 10px; padding: 8px; background: #f9f9f9; border-radius: 6px; border: 1px solid #e5e7eb; }
+  .copy-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 13px; }
+  .copy-row:last-child { margin-bottom: 0; }
+  .btn-copy { background: #0b3a6e; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; width: auto; margin-top: 0; }
+  .btn-copy:hover { background: #d81b60; }
+
+  /* --- Dynamic Status Message Style --- */
+  .status-box { display: flex; align-items: center; gap: 10px; padding: 12px; margin-top: 15px; border-radius: 6px; font-size: 14px; display: none; }
+  .status-box img { width: 24px; height: 24px; flex-shrink: 0; }
+  .status-success { background: #e6f4ea; color: #137333; border: 1px solid #ceead6; }
+  .status-error { background: #fce8e6; color: #c5221f; border: 1px solid #fad2cf; }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
 <body>
 
 <div class="card">
 <img src="https://uploads.onecompiler.io/44g2943xm/44gbfkdxk/1000215151.png" alt="Canada" width="100%" height="5%">
-<p id="msg" class="success"></p>
+
+<div id="responseAlert" class="status-box">
+  <img id="alertIcon" src="" alt="Icon">
+  <span id="alertText"></span>
+</div>
 
 <div class="marquee-container">
     <div class="marquee-content">
@@ -53,15 +74,36 @@ button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;bor
     </div>
 </div>
 
-<b>• Account Type:</h2> Bkash Personal </h2>
-      <select id="refType">
-        <option value="">Payment Teyp.....</option>
-        <option>88 019 *** ** ***</option>
-        <option>88 018 *** ** *** </option>
-<input type="text" value="+880" id="myInput">
-<button onclick="myFunction()">Copy Now</button></p>
-      </select>
+<label>• Account Type: bKash Personal</label>
 
+<div class="qr-section">
+  <div class="qr-box">
+    <div id="qrcode1" class="qr-code"></div>
+    <div>bKash (019) QR</div>
+  </div>
+  <div class="qr-box">
+    <div id="qrcode2" class="qr-code"></div>
+    <div>bKash (018) QR</div>
+  </div>
+</div>
+
+<div class="copy-container">
+  <div class="copy-row">
+    <span>bKash Personal (019***)</span>
+    <button class="btn-copy" onclick="copyNumber('8801916998884')">Copy Number</button>
+  </div>
+  <div class="copy-row">
+    <span>bKash Personal (018***)</span>
+    <button class="btn-copy" onclick="copyNumber('+8801898397060')">Copy Number</button>
+  </div>
+</div>
+
+<label>• Payment Type</label>
+<select id="refType">
+  <option value="">Payment Type.....</option>
+  <option>88 019 *** ** ***</option>
+  <option>88 018 *** ** *** </option>
+</select>
 
 <label>• Name</label>
 <input id="name" placeholder="Your Name">
@@ -75,7 +117,7 @@ button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;bor
 <label>• Transaction ID</label>
 <input id="trxid" placeholder="TrxID">
 
-<form action="/action_page.php">
+<form action="/action_page.php" style="margin-top: 15px;">
   <input type="file" id="myFile" name="filename">
 </form>
 
@@ -97,20 +139,73 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// Generate QR Codes Automatically
+window.onload = function() {
+  new QRCode(document.getElementById("qrcode1"), {
+    text: "8801916998884",
+    width: 80,
+    height: 80
+  });
+
+  new QRCode(document.getElementById("qrcode2"), {
+    text: "+8801898397060",
+    width: 80,
+    height: 80
+  });
+};
+
+// Copy Function
+function copyNumber(num) {
+  navigator.clipboard.writeText(num).then(() => {
+    alert("Number copied successfully: " + num);
+  }).catch(err => {
+    alert("Failed to copy. Please copy manually.");
+  });
+}
+
 function submitPay(){
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const amount = document.getElementById("amount").value.trim();
   const trxid = document.getElementById("trxid").value.trim();
+  const alertBox = document.getElementById("responseAlert");
+  const alertIcon = document.getElementById("alertIcon");
+  const alertText = document.getElementById("alertText");
 
+  // If information is missing (Error)
   if(!name || !phone || !amount || !trxid){
-    alert("পেমেন্ট করুন এবং পেমেন্ট তথ্য সাবমিট করুন");
+    alertBox.className = "status-box status-error";
+    alertIcon.src = "https://uploads.onecompiler.io/44q8kzxda/44q8m2usv/1000235653.png"; // Red warning icon
+    alertText.innerHTML = "<b>ত্রুটি:</b> অনুগ্রহ করে পেমেন্ট করুন এবং পেমেন্টের সঠিক তথ্যগুলো পূরণ করে সাবমিট করুন।";
+    alertBox.style.display = "flex";
     return;
   }
 
+  // If information is valid (Success)
   db.ref("bkash_payments").push({
     name,
     phone,
+    amount,
+    trxid,
+    status:"pending",
+    time:new Date().toLocaleString()
+  });
+
+  alertBox.className = "status-box status-success";
+  alertIcon.src = "https://img.icons8.com/color/48/verified-badge.png"; // Green verified check icon
+  alertText.innerHTML = "গ্লোবাল পেমেন্ট করার জন্য অসংখ্য ধন্যবাদ। পেমেন্টটি কনফার্ম করা হলে আপনি একটি কনফার্মেশন মেসেজ পেয়ে যাবেন, ধন্যবাদ।";
+  alertBox.style.display = "flex";
+
+  // Reset inputs
+  document.getElementById("name").value="";
+  document.getElementById("phone").value="";
+  document.getElementById("amount").value="";
+  document.getElementById("trxid").value="";
+}
+</script>
+
+</body>
+</html>    phone,
     amount,
     trxid,
     status:"pending",
