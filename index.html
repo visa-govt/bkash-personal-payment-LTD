@@ -205,36 +205,4 @@ function submitPay(){
 </script>
 
 </body>
-</html>    phone,
-    amount,
-    trxid,
-    status:"pending",
-    time:new Date().toLocaleString()
-  });
-
-  document.getElementById("msg").innerHTML =
-    "✔ Payment Submitted. একটু অপেক্ষা করুন কনফার্মেশন মেসেজ পেয়ে যাবেন ধন্যবাদ।.";
-
-  document.getElementById("name").value="";
-  document.getElementById("phone").value="";
-  document.getElementById("amount").value="";
-  document.getElementById("trxid").value="";
-}
-function myFunction() {
-  // Get the text field
-  var copyText = document.getElementById("myInput");
-
-  // Select the text field
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); // For mobile devices
-
-  // Copy the text inside the text field
-  navigator.clipboard.writeText(copyText.value);
-  
-  // Alert the copied text
-  alert("Copied the text: " + copyText.value);
-}
-</script>
-
-</body>
 </html>
