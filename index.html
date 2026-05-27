@@ -7,13 +7,13 @@
 <link rel="icon" type="image/x-icon" href="https://uploads.onecompiler.io/44q8kzxda/44q8m2usv/1000235798.png">
 <style>
 body{font-family:Arial;background:#f4f6f9;margin:0}
-.card{max-width:450px;margin:40px auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.card{max-width:420px;margin:40px auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
 h2{text-align:center;color:#d81b60}
 label{font-weight:bold;margin-top:15px;display:block}
 input{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:5px;box-sizing: border-box;}
 button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;border:none;border-radius:5px;font-size:13px;cursor:pointer}
     /* --- Header & Container --- */
-    header { background:#0b3a6e; width: 99%; }
+    header { background:#0b3a6e; width: 100%; }
     .container { max-width:1000px; margin:25px auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,.08); box-sizing: border-box; }
     h2, h3 { margin-top:0; color:#0b3a6e; }
 
@@ -38,22 +38,28 @@ button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;bor
   .btn-copy:hover { background: #d81b60; }
 
   /* --- Dynamic Status Message Style --- */
-  .status-box { display: flex; align-items: center; gap: 12px; padding: 12px; margin-top: 15px; border-radius: 6px; font-size: 16px; display: none; }
-  .status-box img { width: 40px; height: 40px; flex-shrink: 0; }
+  .status-box { display: flex; align-items: center; gap: 10px; padding: 12px; margin-top: 15px; border-radius: 6px; font-size: 14px; display: none; }
+  .status-box img { width: 24px; height: 24px; flex-shrink: 0; }
   .status-success { background: #e6f4ea; color: #137333; border: 1px solid #ceead6; }
   .status-error { background: #fce8e6; color: #c5221f; border: 1px solid #fad2cf; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
+
 <body>
+
 <div class="card">
 <img src="https://uploads.onecompiler.io/44g2943xm/44gbfkdxk/1000215151.png" alt="Canada" width="100%" height="5%">
+
+<div id="responseAlert" class="status-box">
+  <img id="alertIcon" src="" alt="Icon">
+  <span id="alertText"></span>
+</div>
+
 <div class="marquee-container">
     <div class="marquee-content">
         <img src="https://flagcdn.com/w80/ca.png" alt="Canada">
         <img src="https://uploads.onecompiler.io/44ggv5rcj/44hhcn7wq/10863.webp" alt="Australia">
-        <img src="https://uploads.onecompiler.io/44q8kzxda/44q8m2usv/1000235653.png" alt="bkash">
-        <img src="https://uploads.onecompiler.io/44q8kzxda/44q8m2usv/1000235798.png" alt="bkash">
         <img src="https://uploads.onecompiler.io/44ggv5rcj/44hhcn7wq/10862.webp" alt="USA">
         <img src="https://uploads.onecompiler.io/44hgvsk4u/44hkn9w7a/1000216425.png" alt="UK">
         <img src="https://uploads.onecompiler.io/44hgvsk4u/44hkn9w7a/1000216422.png" alt="Check">
@@ -73,21 +79,21 @@ button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;bor
 <div class="qr-section">
   <div class="qr-box">
     <div id="qrcode1" class="qr-code"></div>
-    <div>bKash (+8801***84) QR</div>
+    <div>bKash (019) QR</div>
   </div>
   <div class="qr-box">
     <div id="qrcode2" class="qr-code"></div>
-    <div>bKash (+8801***60) QR</div>
+    <div>bKash (018) QR</div>
   </div>
 </div>
 
 <div class="copy-container">
   <div class="copy-row">
-    <span>bKash Personal (+88019***)</span>
+    <span>bKash Personal (019***)</span>
     <button class="btn-copy" onclick="copyNumber('8801916998884')">Copy Number</button>
   </div>
   <div class="copy-row">
-    <span>bKash Personal (+88018***)</span>
+    <span>bKash Personal (018***)</span>
     <button class="btn-copy" onclick="copyNumber('+8801898397060')">Copy Number</button>
   </div>
 </div>
@@ -99,16 +105,11 @@ button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;bor
   <option>88 018 *** ** *** </option>
 </select>
 
-<div id="responseAlert" class="status-box">
-  <img id="alertIcon" src="" alt="Icon">
-  <span id="alertText"></span>
-</div>
-
 <label>• Name</label>
 <input id="name" placeholder="Your Name">
 
-<label>• Payment Number</label>
-<input id="phone" placeholder="01XXXXXXXXX">
+<label>• WhatsApp Number</label>
+<input id="phone" placeholder="Example: 8801XXXXXXXXX">
 
 <label>• Amount</label>
 <input id="amount" placeholder="0.00 (BDT)">
@@ -121,8 +122,8 @@ button{margin-top:15px;width:100%;padding:12px;background:#d81b60;color:#fff;bor
 </form>
 
 <button onclick="submitPay()">Submit Payment</button>
-<div id="responseAlert" class="status-box">
 </div>
+
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -137,6 +138,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+
+// --- আপনার লাইভ Sent.dm API তথ্য এখানে কনফিগার করে দেওয়া হয়েছে ---
+const SENT_DM_API_KEY = "a97dd58f-8aa7-486a-9e25-4b6a8a763d69"; 
+const SENT_DM_SENDER_ID = "2809cab4-d28c-41e8-b61e-dc186342dd73";       
 
 // Generate QR Codes Automatically
 window.onload = function() {
@@ -162,6 +167,33 @@ function copyNumber(num) {
   });
 }
 
+// হোয়াটসঅ্যাপ মেসেজ পাঠানোর ফাংশন
+function sendWhatsAppNotification(userName, userPhone, userAmount, transactionId) {
+  const messageText = `*Global Visa Guide*\n\nপ্রিয় ${userName},\nআপনার ${userAmount} BDT-এর পেমেন্ট তথ্যটি সফলভাবে জমা হয়েছে।\n\n*TrxID:* ${transactionId}\n\nপেমেন্টটি ম্যানুয়ালি ভেরিফাই করে কনফার্ম করা হলে আপনি আরেকটি কনফার্মেশন মেসেজ পেয়ে যাবেন। আমাদের সাথে থাকার জন্য ধন্যবাদ!`;
+
+  // আপনার ইনপুট নাম্বারটিকে আন্তর্জাতিক ফরম্যাটে রূপান্তর করার চেষ্টা (যেমন: 88017...)
+  let formattedPhone = userPhone.replace(/[^0-9]/g, '');
+  if (formattedPhone.startsWith('0')) {
+    formattedPhone = '88' + formattedPhone;
+  }
+
+  // Sent.dm API Fetch Request
+  fetch(`https://api.sent.dm/v1/phone/${SENT_DM_SENDER_ID}/media/text`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${SENT_DM_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      recipient: formattedPhone,
+      body: messageText
+    })
+  })
+  .then(response => response.json())
+  .then(data => console.log("WhatsApp Notification Sent:", data))
+  .catch(error => console.error("Error sending WhatsApp:", error));
+}
+
 function submitPay(){
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
@@ -171,16 +203,16 @@ function submitPay(){
   const alertIcon = document.getElementById("alertIcon");
   const alertText = document.getElementById("alertText");
 
-  // If information is missing (Error)
+  // Error Alert
   if(!name || !phone || !amount || !trxid){
     alertBox.className = "status-box status-error";
-    alertIcon.src = "https://uploads.onecompiler.io/44q8kzxda/44q8m2usv/1000235798.png"; // Red warning icon
-    alertText.innerHTML = "<b>❗ত্রুটি:</b> অনুগ্রহ করে পেমেন্ট করুন এবং পেমেন্টের সঠিক তথ্যগুলো পূরণ করে সাবমিট করুন।";
+    alertIcon.src = "https://uploads.onecompiler.io/44q8kzxda/44q8m2usv/1000235653.png";
+    alertText.innerHTML = "<b>ত্রুটি:</b> অনুগ্রহ করে পেমেন্ট করুন এবং পেমেন্টের সঠিক তথ্যগুলো পূরণ করে সাবমিট করুন।";
     alertBox.style.display = "flex";
     return;
   }
 
-  // If information is valid (Success)
+  // Firebase Database Push
   db.ref("bkash_payments").push({
     name,
     phone,
@@ -190,8 +222,12 @@ function submitPay(){
     time:new Date().toLocaleString()
   });
 
+  // স্বয়ংক্রিয়ভাবে হোয়াটসঅ্যাপ মেসেজ ট্রিগার করা
+  sendWhatsAppNotification(name, phone, amount, trxid);
+
+  // Success Alert
   alertBox.className = "status-box status-success";
-  alertIcon.src = "https://img.icons8.com/color/48/verified-badge.png"; // Green verified check icon
+  alertIcon.src = "https://img.icons8.com/color/48/verified-badge.png";
   alertText.innerHTML = "গ্লোবাল পেমেন্ট করার জন্য অসংখ্য ধন্যবাদ। পেমেন্টটি কনফার্ম করা হলে আপনি একটি কনফার্মেশন মেসেজ পেয়ে যাবেন, ধন্যবাদ।";
   alertBox.style.display = "flex";
 
